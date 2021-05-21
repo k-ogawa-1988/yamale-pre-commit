@@ -1,0 +1,25 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: check-case-conflict
+      - id: mixed-line-ending
+        args:
+          - '--fix=lf'
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+        args:
+          - '--markdown-linebreak-ext=md'
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: pretty-format-json
+        args:
+          - '--autofix'
+          - '--no-sort-keys'
+          - '--no-ensure-ascii'
+          - '--indent'
+          - '2'
+      - id: fix-encoding-pragma
+        args:
+          - '--remove'
+      - id: double-quote-string-fixer

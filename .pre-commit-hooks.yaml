@@ -1,0 +1,6 @@
+- id: yamale-validate
+  name: Yamale validation
+  description: Run yamale on a set of files.
+  entry: yamale-validate
+  language: python
+  files: (\.yaml|\.yml)$

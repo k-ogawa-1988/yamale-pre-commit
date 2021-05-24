@@ -1,6 +1,6 @@
-# A git hooks for Yamale to be used with [pre-commit framework](http://pre-commit.com/)
+# Collection of git hooks for Yamale to be used with [pre-commit framework](http://pre-commit.com/)
 
-[![Github tag](https://img.shields.io/github/tag/k-ogawa-1988/pre-commit-yamale.svg)](https://github.com/k-ogawa-1988/pre-commit-yamale/releases)
+[![Github tag](https://img.shields.io/github/tag/k-ogawa-1988/yamale-pre-commit.svg)](https://github.com/k-ogawa-1988/yamale-pre-commit/releases)
 
 ## How to install
 
@@ -15,8 +15,8 @@ Step into the repository you want to have the pre-commit hooks installed and edi
 
 ```yaml
 repos:
-- repo: https://github.com/k-ogawa-1988/pre-commit-yamale
-  rev: <VERSION> # Get the latest from: https://github.com/k-ogawa-1988/pre-commit-yamale/releases
+- repo: https://github.com/k-ogawa-1988/yamale-pre-commit
+  rev: <VERSION> # Get the latest from: https://github.com/k-ogawa-1988/yamale-pre-commit/releases
   hooks:
     - id: yamale-validate
 ```
@@ -25,8 +25,8 @@ with options:
 
 ```yaml
 repos:
-- repo: https://github.com/k-ogawa-1988/pre-commit-yamale
-  rev: <VERSION> # Get the latest from: https://github.com/k-ogawa-1988/pre-commit-yamale/releases
+- repo: https://github.com/k-ogawa-1988/yamale-pre-commit
+  rev: <VERSION> # Get the latest from: https://github.com/k-ogawa-1988/yamale-pre-commit/releases
   hooks:
     - id: yamale-validate
       args:  # Describe below
@@ -53,14 +53,10 @@ pre-commit run -a
 * `--no-strict`  
   Disable strict mode, unexpected elements in the data will be accepted.
 
-### Arguments from pre-commit-yamale
+### Arguments from yamale-pre-commit
 
 * `PATH`  (required)  
-  Files to validate.
-* `--no-recursive`  
-  Disable recursive scan under specified path.
-* `--exclude=EXCLUDE`  
-  Folder to exclude from validation. Multiple options can be accepted.
+  Files to validate. Normally this argument are supplied from pre-commit.
 * `--debug`  
   Output debug logs.
 

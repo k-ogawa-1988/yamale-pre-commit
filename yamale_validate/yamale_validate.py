@@ -16,10 +16,6 @@ def main(argv=None):
     parser.add_argument(
         '--no-strict', dest='no_strict', action='store_true', help='Disable strict mode, unexpected elements in the data will be accepted.',
     )
-    parser.add_argument(
-        '--no-recursive', dest='no_recursive', action='store_true', help='Disable recursive scan under specified path.',
-    )
-    parser.add_argument('--exclude', dest='exclude', action='append', help='Folder to exclude from validation. Multiple options can be accepted.')
     parser.add_argument('--debug', dest='debug', action='store_true', help='Output debug logs.')
     parser.add_argument('path', nargs='+', help='Files to validate.')
     args = parser.parse_args(argv)
@@ -38,13 +34,6 @@ def main(argv=None):
 
     if args.debug:
         print(f'[debug] path_to_check = {path_to_check}')
-
-    if args.exclude:
-        path_to_exclude = []  # type: List[str]
-        for exclude_path in args.exclude:  # type: str
-            path_to_exclude.extend([x for x in path_to_check if x.startswith(exclude_path)])
-
-        path_to_check = [x for x in path_to_check if x not in path_to_exclude]
 
     if args.debug:
         print(f'[debug] path_to_check = {path_to_check}')
@@ -80,9 +69,8 @@ def main(argv=None):
             except yamale.YamaleError as e:
                 print('  Validation failed!')
                 for result in e.results:
-                    print(f'    Error validating data "{result.data}" with schema "{result.schema}"')
                     for error in result.errors:
-                        print(f'      {error}')
+                        print(f'    {error}')
                 ret = 1
 
     except BaseException as e:

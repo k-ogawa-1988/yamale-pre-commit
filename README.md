@@ -1,4 +1,4 @@
-# Collection of git hooks for Yamale to be used with [pre-commit framework](http://pre-commit.com/)
+# A git hooks for Yamale to be used with [pre-commit framework](http://pre-commit.com/)
 
 [![Github tag](https://img.shields.io/github/tag/k-ogawa-1988/pre-commit-yamale.svg)](https://github.com/k-ogawa-1988/pre-commit-yamale/releases)
 

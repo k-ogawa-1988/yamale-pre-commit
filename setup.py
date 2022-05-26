@@ -14,6 +14,7 @@ setup(
     ],
     packages=find_packages(exclude=('tests*', 'testing*')),
     install_requires=[
+        'envsubst~=0.1.5',
         'yamale~=3.0',
     ],
     python_requires='>=3.6.1',

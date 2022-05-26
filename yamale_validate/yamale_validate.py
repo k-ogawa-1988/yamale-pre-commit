@@ -1,6 +1,7 @@
 import argparse
 import os
 from typing import List
+from envsubst import envsubst
 
 
 def main(argv=None):
@@ -51,7 +52,7 @@ def main(argv=None):
             data = yamale.make_data(path=file_path, parser=args.parser)
 
             try:
-                schema_path = args.schema if os.path.isabs(args.schema) else os.path.join(os.path.dirname(file_path), args.schema)
+                schema_path = envsubst(args.schema) if os.path.isabs(envsubst(args.schema)) else os.path.join(os.path.dirname(file_path), envsubst(args.schema))
                 if file_path == schema_path:
                     continue
 

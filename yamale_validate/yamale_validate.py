@@ -8,7 +8,7 @@ def main(argv=None):
         description='Run yamale on a set of files.'
     )
     parser.add_argument(
-        '--schema', '-s', dest='schema', default='schema.yaml', help='File path of schema. Both absolute path and relative path can be accepted.'
+        '--schema', '-s', dest='schema', default='.yamale-validate-schema.yaml', help='File path of schema. Both absolute path and relative path can be accepted.'
     )
     parser.add_argument(
         '--parser', '-p', dest='parser', default='pyyaml', choices=['pyyaml', 'ruamel'], help='YAML library to load files. Choices are "ruamel" or "pyyaml" (default).'
@@ -50,28 +50,28 @@ def main(argv=None):
         for file_path in path_to_check:
             data = yamale.make_data(path=file_path, parser=args.parser)
 
+            schema_path = os.path.join(os.getcwd(), args.schema)
+
+            if file_path == schema_path:
+                continue
+
             try:
-                schema_path = args.schema if os.path.isabs(args.schema) else os.path.join(os.path.dirname(file_path), args.schema)
-                if file_path == schema_path:
-                    continue
-
-                try:
-                    schema = yamale.make_schema(path=schema_path, parser=args.parser)
-                except FileNotFoundError:
-                    print(f'Validating: "{file_path}" with schema "{schema_path}"')
-                    print(f'  Skip: schema not found.')
-                    continue
-
+                schema = yamale.make_schema(path=schema_path, parser=args.parser)
+            except FileNotFoundError:
                 print(f'Validating: "{file_path}" with schema "{schema_path}"')
-                yamale.validate(schema=schema, data=data, strict=not args.no_strict)
-                print('  Okay!')
+                print(f'  Skip: schema not found.')
+                continue
 
-            except yamale.YamaleError as e:
-                print('  Validation failed!')
-                for result in e.results:
-                    for error in result.errors:
-                        print(f'    {error}')
-                ret = 1
+            print(f'Validating: "{file_path}" with schema "{schema_path}"')
+            yamale.validate(schema=schema, data=data, strict=not args.no_strict)
+            print('  Okay!')
+
+    except yamale.YamaleError as e:
+        print('  Validation failed!')
+        for result in e.results:
+            for error in result.errors:
+                print(f'    {error}')
+        ret = 1
 
     except BaseException as e:
         print(e)
